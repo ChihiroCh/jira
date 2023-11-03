@@ -17,8 +17,8 @@ export const useDebounce = <T>(value: T, delay?: number) => {
 
 const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
-export const cleanObiect = (object: object) => {
-  const result = { ...object };
+export const cleanObiect = (obj: { [key: string]: unknown }) => {
+  const result = { ...obj };
   Object.keys(result).forEach((key: string) => {
     const value = result[key];
     if (isFalsy(value)) {
@@ -26,4 +26,18 @@ export const cleanObiect = (object: object) => {
     }
   });
   return result;
+};
+
+export const useArray = <V>(value: [V]) => {
+  const [persons, setPersons] = useState([...value]);
+  const clear = () => setPersons([]);
+  const removeIndex = (i: number) => {
+    setPersons(persons.filter((item, index) => index !== i));
+  };
+  const add = (person: V) => setPersons([...persons, { ...person }]);
+  return {
+    clear,
+    removeIndex,
+    add,
+  };
 };
