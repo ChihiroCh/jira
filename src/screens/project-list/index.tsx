@@ -6,7 +6,7 @@ import qs from "qs";
 
 const apiURL = process.env.REACT_API_URL;
 
-const Form = () => {
+const ProjectList = () => {
   const [param, setParam] = useState({
     name: "",
     personId: "",
@@ -37,4 +37,4 @@ const Form = () => {
     </div>
   );
 };
-export default Form;
+export default ProjectList;
