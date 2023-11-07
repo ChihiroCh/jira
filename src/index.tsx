@@ -1,21 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { loadDevTools } from "jira-dev-tool";
+import { loadServer, DevTools } from "jira-dev-tool";
 // 务必在jira-dev-tool后面引入 安装最新 版本不需要
 // import 'antd/dist/antd.less';
-import { AuthProvider } from "context/auth-context";
 import { ConfigProvider } from "antd";
+import { AppProviders } from "context";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
-loadDevTools(() =>
+loadServer(() =>
   root.render(
     <React.StrictMode>
-      <AuthProvider>
+      <AppProviders>
         <ConfigProvider
           theme={{
             token: {
@@ -25,9 +24,10 @@ loadDevTools(() =>
             },
           }}
         >
+          <DevTools />
           <App />
         </ConfigProvider>
-      </AuthProvider>
+      </AppProviders>
     </React.StrictMode>,
   ),
 );

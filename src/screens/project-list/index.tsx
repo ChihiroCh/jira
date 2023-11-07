@@ -15,17 +15,26 @@ const ProjectList = () => {
   const client = useHttp();
   const [users, setUsers] = useState([]);
   const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
   useMount(() => {
     client("users").then((data) => setUsers(data));
   });
   const debounceParam = useDebounce(param, 2000);
   useEffect(() => {
-    client("projects", { data: cleanObiect(debounceParam) }).then(setList);
+    setLoading(true);
+    client("projects", { data: cleanObiect(debounceParam) })
+      .then(setList)
+      .catch((err) => {
+        setList([]);
+        setError(err.msg);
+      })
+      .finally(() => setLoading(false));
   }, [debounceParam]);
   return (
     <div>
       <SearchPanel users={users} param={param} setParam={setParam} />
-      <List users={users} list={list} />
+      <List users={users} dataSource={list} loading={loading} />
     </div>
   );
 };
