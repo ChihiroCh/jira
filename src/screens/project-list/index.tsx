@@ -17,22 +17,10 @@ const ProjectList = () => {
   const [list, setList] = useState([]);
   useMount(() => {
     client("users").then((data) => setUsers(data));
-    // fetch(`${apiURL}/users`).then(async (response) => {
-    //   if (response.ok) {
-    //     setUsers(await response.json());
-    //   }
-    // });
   });
   const debounceParam = useDebounce(param, 2000);
   useEffect(() => {
     client("projects", { data: cleanObiect(debounceParam) }).then(setList);
-    // fetch(
-    //   `${apiURL}/projects?${qs.stringify(cleanObiect(debounceParam))}`,
-    // ).then(async (response) => {
-    //   if (response.ok) {
-    //     setList(await response.json());
-    //   }
-    // });
   }, [debounceParam]);
   return (
     <div>

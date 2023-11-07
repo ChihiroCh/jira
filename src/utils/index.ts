@@ -16,12 +16,14 @@ export const useDebounce = <T>(value: T, delay?: number) => {
 };
 
 const isFalsy = (value: unknown) => (value === 0 ? false : !value);
+export const isVoid = (value: unknown) =>
+  value === null || value === undefined || value === "";
 
 export const cleanObiect = (obj: { [key: string]: unknown }) => {
   const result = { ...obj };
   Object.keys(result).forEach((key: string) => {
     const value = result[key];
-    if (isFalsy(value)) {
+    if (isVoid(value)) {
       delete result[key];
     }
   });

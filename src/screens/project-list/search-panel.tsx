@@ -20,8 +20,8 @@ interface SearchPanelProps {
 
 const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
   return (
-    <Form>
-      <div>
+    <Form layout="inline">
+      <Form.Item>
         <Input
           type="text"
           value={param.name}
@@ -29,6 +29,8 @@ const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
             setParam({ ...param, name: evt.target.value });
           }}
         />
+      </Form.Item>
+      <Form.Item>
         <Select
           value={param.personId}
           onChange={(value) => {
@@ -42,7 +44,7 @@ const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
             </Select.Option>
           ))}
         </Select>
-      </div>
+      </Form.Item>
     </Form>
   );
 };
