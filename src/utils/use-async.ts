@@ -10,7 +10,7 @@ const defaultInitialState: State<null> = {
   data: null,
   error: null,
 };
-export const useAsync = <D>(initState: State<D>) => {
+export const useAsync = <D>(initState?: State<D>) => {
   const [state, setState] = useState<State<D>>({
     ...defaultInitialState,
     ...initState,

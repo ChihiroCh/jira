@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useMount = (fn: () => void) => {
   useEffect(() => {
@@ -42,4 +42,22 @@ export const useArray = <V>(value: [V]) => {
     removeIndex,
     add,
   };
+};
+
+export const useDocumentTitle = (
+  title: string,
+  keepOnUnment: boolean = true,
+) => {
+  const oldTitle = useRef(document.title).current;
+  // const oldTitle = document.title
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+  useEffect(() => {
+    return () => {
+      if (!keepOnUnment) {
+        document.title = oldTitle;
+      }
+    };
+  }, [keepOnUnment, oldTitle]);
 };
